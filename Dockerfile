@@ -19,6 +19,6 @@ COPY requirements.txt /app
 
 RUN pip install -r requirements.txt
 
-
+COPY . /app
 ENV PYTHONPATH="${PYTHONPATH}:/app"
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "2", "zampa.wsgi:application"]
