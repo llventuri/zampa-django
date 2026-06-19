@@ -21,4 +21,5 @@ RUN pip install -r requirements.txt
 
 COPY . /app
 ENV PYTHONPATH="${PYTHONPATH}:/app"
+ENV DJANGO_SETTINGS_MODULE=zampa.settings_prod
 CMD ["gunicorn", "--bind", "0.0.0.0:8080", "--workers", "2", "zampa.wsgi:application"]
