@@ -16,7 +16,7 @@ class DogProfile(models.Model):
     dogName=models.CharField(max_length=30)
     dogBirthdate=models.DateField()
     breed=models.CharField(max_length=30)
-    weightKG=models.DecimalField(max_digits=3,decimal_places=2)
+    weightKG=models.DecimalField(max_digits=5, decimal_places=2)
     behaviour=models.CharField(max_length=30)
     meds=models.BooleanField(default=False)
 
