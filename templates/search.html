@@ -12,22 +12,21 @@
 
 <div style="max-width:1160px;margin:0 auto;padding:0 24px 80px;">
   <div class="search-bar">
-    <form method="GET" action="{{ url_for('search') }}">
+    <form method="GET" action="{% url 'search' %}">
       <div class="form-group">
         <label class="form-label">Member name</label>
-        <input type="text" name="username" class="form-control" value="{{ username }}" placeholder="Maria, Jordi…" />
+        <input type="text" name="username" class="form-control" value="{{ query_name|default:'' }}" placeholder="Maria, Jordi…" />
       </div>
       <div class="form-group">
         <label class="form-label">Dog's name</label>
-        <input type="text" name="dog_name" class="form-control" value="{{ dog_name }}" placeholder="Bruno, Luna…" />
+        <input type="text" name="dog_name" class="form-control" value="{{ query_dog|default:'' }}" placeholder="Bruno, Luna…" />
       </div>
       <div class="form-group">
         <label class="form-label">Neighbourhood</label>
         <select name="neighborhood" class="form-control">
           <option value="">Any</option>
-          {% set hoods = ["Barceloneta","Born","Eixample","Gràcia","Horta","Les Corts","Nou Barris","Poblenou","Sant Andreu","Sant Pere","Sarrià","Sants"] %}
           {% for hood in hoods %}
-            <option value="{{ hood }}" {% if neighborhood == hood %}selected{% endif %}>{{ hood }}</option>
+            <option value="{{ hood }}" {% if query_neighborhood == hood %}selected{% endif %}>{{ hood }}</option>
           {% endfor %}
         </select>
       </div>
@@ -38,25 +37,25 @@
     </form>
   </div>
 
-  {% if users is defined %}
+  {% if searched %}
     {% if users %}
       <div class="users-grid" style="padding:0;">
-        {% for user in users %}
+        {% for item in users %}
           <div class="user-card">
-            <div class="avatar avatar--lg user-card__avatar">{{ user['username'][0].upper() }}</div>
-            <p class="user-card__name">{{ user['username'] }}</p>
-            <p class="user-card__hood">📍 {{ user['neighborhood'] or '—' }}</p>
-            {% if user['dog_name'] %}
-              <p class="user-card__dog">🐾 {{ user['dog_name'] }}{% if user['dog_breed'] %} · {{ user['dog_breed'] }}{% endif %}</p>
+            <div class="avatar avatar--lg user-card__avatar">{{ item.profile.name|first|upper }}</div>
+            <p class="user-card__name">{{ item.profile.name }} {{ item.profile.lastname }}</p>
+            <p class="user-card__hood">📍 {{ item.profile.neighborhood|default:'—' }}</p>
+            {% if item.dog %}
+              <p class="user-card__dog">🐾 {{ item.dog.dogName }}{% if item.dog.breed %} · {{ item.dog.breed }}{% endif %}</p>
             {% endif %}
-            <a href="{{ url_for('user_profile', user_id=user['id']) }}" class="btn btn-outline btn-sm" style="margin-top:12px;width:100%;">See profile</a>
+            <a href="{% url 'user_profile' item.user.id %}" class="btn btn-outline btn-sm" style="margin-top:12px;width:100%;">See profile</a>
           </div>
         {% endfor %}
       </div>
     {% else %}
       <div class="empty-state">
         <div class="empty-state__icon">🔍</div>
-        <p>No members found for your search. Try fewer filters.</p>
+        <p>No members found. Try fewer filters.</p>
       </div>
     {% endif %}
   {% endif %}

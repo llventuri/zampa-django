@@ -21,10 +21,15 @@ class DogProfile(models.Model):
     meds=models.BooleanField(default=False)
 
 class BoardPost(models.Model):
-    dateTimePost=models.DateTimeField()
-    dateRequested=models.DateTimeField()
-    text=models.TextField()
-    recurrent=models.BooleanField(default=False)
-    dog=models.ForeignKey(DogProfile,on_delete=models.CASCADE)
-    active=models.BooleanField(default=True)
+    dateTimePost    = models.DateTimeField(auto_now_add=True)
+    dateRequested   = models.DateTimeField()
+    text            = models.TextField()
+    recurrent       = models.BooleanField(default=False)
+    dog             = models.ForeignKey(DogProfile, on_delete=models.CASCADE)
+    active          = models.BooleanField(default=True)
+    # New fields:
+    title           = models.CharField(max_length=100)
+    neighborhood    = models.CharField(max_length=30)
+    post_type       = models.CharField(max_length=20, default="walk")  
+    schedule        = models.CharField(max_length=60, blank=True)
     

@@ -37,7 +37,7 @@
   <div style="background:var(--peach-mid);border:1.5px solid var(--peach-warm);border-radius:var(--radius-md);padding:32px;text-align:center;margin-top:48px;">
     <h3 style="margin-bottom:8px;">Ready to join?</h3>
     <p style="color:var(--ink-mid);margin-bottom:20px;">It's free. Always will be.</p>
-    <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg">Create your profile</a>
+    <a href="{% url 'register' %}" class="btn btn-primary btn-lg">Create your profile</a>
   </div>
 </div>
 {% endblock %}
