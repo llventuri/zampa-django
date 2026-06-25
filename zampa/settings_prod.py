@@ -28,6 +28,9 @@ SECRET_KEY = 'django-insecure-i+8_$no_i+^#ayi(c8zwf4ha28z8noto^c4epermv7d*z7mfac
 DEBUG = False
 
 ALLOWED_HOSTS = ["zampa.online"]
+CSRF_TRUSTED_ORIGINS = [
+    'https://zampa.online',
+]
 
 # Application definition
 
